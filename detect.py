@@ -40,7 +40,7 @@ from pymongo import MongoClient
 cluster=MongoClient("mongodb://localhost")
 db=cluster["Traffic"]
 collection = db["junction1"]
-'''
+
 arduino = serial.Serial(port='COM9', baudrate=115200, timeout=.1)
 def write_read(x):
     arduino.write(bytes(x, 'utf-8'))
@@ -48,7 +48,7 @@ def write_read(x):
     #data = arduino.readline()
     print("\n\nDATA ",x)
     #return data
-'''    
+    
 def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
         source=ROOT / 'data/images',  # file/dir/URL/glob, 0 for webcam
         imgsz=640,  # inference size (pixels)
@@ -229,7 +229,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
             if(ch ==  ord('x')):
                 print("*****TAKEN******")
                 cars=[count1,count2,count3,count4]
-                #write_read(str(cars.index(max(cars))))
+                write_read(str(cars.index(max(cars))))
                 collection.insert_one({"Lane1":count1,"Lane2":count2,"Lane3":count3,"Lane4":count4})
                 print(cars)
                 cars=[]
